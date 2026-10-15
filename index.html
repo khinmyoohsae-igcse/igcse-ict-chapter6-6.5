@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE ICT - Booking Systems & Online Booking Systems Quiz (20 MCQs)</title>
+    <style>
+        :root {
+            --bg-main: #090d16;
+            --bg-card: #131d31;
+            --border-color: #223354;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        header h1 {
+            color: var(--accent);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-status {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .score-pill {
+            background-color: #0c4a6e;
+            color: #7dd3fc;
+            padding: 0.35rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #0284c7;
+        }
+
+        .card {
+            width: 100%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            background-color: #1e293b;
+            color: var(--text-main);
+            padding: 1rem 1.25rem;
+            border-radius: 0.85rem;
+            border: 1px solid #334155;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: #283548;
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .option-btn.correct {
+            background-color: #064e3b !important;
+            border-color: #059669 !important;
+            color: #ecfdf5 !important;
+        }
+
+        .option-btn.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #dc2626 !important;
+            color: #fee2e2 !important;
+        }
+
+        .feedback-box {
+            padding: 1.15rem;
+            border-radius: 0.85rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .feedback-box.correct-feedback {
+            background-color: #022c22;
+            border: 1px solid #047857;
+            color: #a7f3d0;
+        }
+
+        .feedback-box.incorrect-feedback {
+            background-color: #450a0a;
+            border: 1px solid #b91c1c;
+            color: #fecdd3;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.85rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .results-card {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .results-card h2 {
+            font-size: 2.25rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .results-card p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>IGCSE ICT Practice Quiz</h1>
+        <p>Topics 6.5 & 6.5.1 Booking Systems & Online Booking Systems (20 MCQs)</p>
+    </header>
+
+    <main>
+        <div class="quiz-status">
+            <span id="question-counter">Question 1 of 20</span>
+            <span id="score-display" class="score-pill">Score: 0</span>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="card">
+            <div id="question-box" class="question-text">
+                Loading question...
+            </div>
+
+            <div id="options-container" class="options-list">
+                <!-- Options populated dynamically -->
+            </div>
+
+            <div id="feedback-box" class="feedback-box hidden">
+                <!-- Feedback populated dynamically -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end;">
+                <button id="next-btn" onclick="nextQuestion()" class="btn-primary hidden">Next Question</button>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results-container" class="card results-card hidden">
+            <h2>Quiz Completed! 🎉</h2>
+            <p id="final-score">You scored X out of 20</p>
+            <button onclick="restartQuiz()" class="btn-primary">Restart Quiz</button>
+        </div>
+    </main>
+
+    <footer>
+        IGCSE ICT Revision &bull; Online Booking Systems
+    </footer>
+
+    <script>
+        const questions = [
+            {
+                question: "What is an online booking system?",
+                options: [
+                    { text: "A computerized web-based system that allows customers to search for availability, reserve seats, rooms, or tickets, and make secure payments online", isCorrect: true, rationale: "Online booking systems automate reservations across airline, hotel, cinema, and event industries via the internet." },
+                    { text: "A physical paper logbook kept at office front desks", isCorrect: false, rationale: "This describes manual paper logging, not online automated systems." },
+                    { text: "A computer virus scanner software suite", isCorrect: false, rationale: "This describes anti-malware software." },
+                    { text: "A magnetic tape archiving storage vault", isCorrect: false, rationale: "This is backing storage." }
+                ]
+            },
+            {
+                question: "What core components are essential to the database backend of an online booking system?",
+                options: [
+                    { text: "Real-time record updating to prevent double-booking, primary keys for booking references, and transactional locking during checkout", isCorrect: true, rationale: "Booking databases must prevent two customers from booking the exact same seat simultaneously using record locking." },
+                    { text: "A laser printer for printing paper receipts", isCorrect: false, rationale: "Printers output paper; they do not manage database transactional logic." },
+                    { text: "An optical mark reader for grading exam sheets", isCorrect: false, rationale: "This describes OMR card grading." },
+                    { text: "A flatbed scanner for digitizing photographs", isCorrect: false, rationale: "This is image scanning." }
+                ]
+            },
+            {
+                question: "Why is 'double-booking prevention' critical in online reservation systems (such as airline seat selection)?",
+                options: [
+                    { text: "To ensure that two different customers cannot reserve the exact same seat or hotel room at the same time", isCorrect: true, rationale: "Database record locking locks a seat temporarily during checkout to prevent double-booking conflicts." },
+                    { text: "To double the cost of ticket prices automatically", isCorrect: false, rationale: "Pricing is set by business logic, not booking conflicts." },
+                    { text: "To print out duplicate paper tickets on office printers", isCorrect: false, rationale: "This is unrelated." },
+                    { text: "To increase internet browser download speeds", isCorrect: false, rationale: "Double-booking prevention is a database integrity feature, not speed." }
+                ]
+            },
+            {
+                question: "What are the advantages of online booking systems for customers?",
+                options: [
+                    { text: "Available 24/7 from anywhere, easy comparison of prices and dates, instant booking confirmation, and elimination of queues or phone calls", isCorrect: true, rationale: "Customers enjoy round-the-clock convenience, instant confirmation, and easy comparison shopping." },
+                    { text: "Requirement to visit physical travel agency offices in person", isCorrect: false, rationale: "Online booking eliminates physical travel agency visits." },
+                    { text: "Mandatory payment using cash coins only", isCorrect: false, rationale: "Online bookings require electronic payment methods like credit cards or digital wallets." },
+                    { text: "Inability to select specific seats", isCorrect: false, rationale: "Online systems typically feature interactive seat selection maps." }
+                ]
+            },
+            {
+                question: "What are the advantages of online booking systems for businesses (e.g., airlines, hotels, cinemas)?",
+                options: [
+                    { text: "Reduced administrative overhead costs, 24/7 global sales reach, automated database record updating, and valuable customer data analytics", isCorrect: true, rationale: "Businesses save labor costs, reach global customers round-the-clock, and automate inventory management." },
+                    { text: "Complete elimination of all computer hardware and internet costs", isCorrect: false, rationale: "Hosting and running web servers incurs operational costs." },
+                    { text: "Requirement to hire large teams of manual telephone operators", isCorrect: false, rationale: "Online booking reduces the need for large phone call centers." },
+                    { text: "Zero ability to track customer sales history", isCorrect: false, rationale: "Databases track all customer sales history automatically." }
+                ]
+            },
+            {
+                question: "What happens to available inventory (e.g., airline seats or hotel rooms) immediately after a successful online booking transaction is completed?",
+                options: [
+                    { text: "The central database updates instantly to remove that seat or room from available inventory, preventing anyone else from booking it", isCorrect: true, rationale: "Real-time inventory updates ensure seat availability reflects current bookings immediately." },
+                    { text: "The inventory remains unchanged until the end of the month", isCorrect: false, rationale: "Inventory updates in real time to prevent overbooking." },
+                    { text: "The database deletes all previous customer booking records", isCorrect: false, rationale: "Previous records are archived for business accounting and history." },
+                    { text: "The hotel or airline website shuts down automatically", isCorrect: false, rationale: "Websites remain online for continuous booking." }
+                ]
+            },
+            {
+                question: "What is a booking reference number (PNR / booking code) and why is it issued to customers?",
+                options: [
+                    { text: "A unique alphanumeric code generated by the database upon booking confirmation, used for retrieving reservation details, check-in, and customer support", isCorrect: true, rationale: "Unique booking references act as primary keys linking the customer to their specific reservation record." },
+                    { text: "The customer's bank account PIN password", isCorrect: false, rationale: "Booking references are public reservation codes, never bank PINs." },
+                    { text: "The customer's home telephone number", isCorrect: false, rationale: "This is contact info, not a reservation code." },
+                    { text: "The flight number of the airplane", isCorrect: false, rationale: "Flight numbers identify the aircraft route, not the individual booking." }
+                ]
+            },
+            {
+                question: "What security measures are essential when processing online payments during a booking transaction?",
+                options: [
+                    { text: "Secure Sockets Layer / Transport Layer Security (SSL/TLS encryption via HTTPS), tokenization, and compliance with payment card industry data security standards (PCI-DSS)", isCorrect: true, rationale: "Encryption protects sensitive financial data in transit between the user browser and booking server." },
+                    { text: "Writing credit card numbers on paper postcards sent by mail", isCorrect: false, rationale: "This is insecure and obsolete." },
+                    { text: "Storing plain-text credit card passwords in public text files", isCorrect: false, rationale: "Plain-text storage violates security standards." },
+                    { text: "Using unencrypted HTTP web connections", isCorrect: false, rationale: "HTTPS is mandatory for secure financial transactions." }
+                ]
+            },
+            {
+                question: "What is a potential disadvantage or risk of online booking systems for businesses?",
+                options: [
+                    { text: "Server outages or cyberattacks can halt all bookings, system bugs can cause overbooking errors, and setup/maintenance costs can be high", isCorrect: true, rationale: "Technical failures or website downtime can result in immediate loss of revenue and customer dissatisfaction." },
+                    { text: "Online booking systems make businesses completely immune to financial loss", isCorrect: false, rationale: "Businesses still face market and operational risks." },
+                    { text: "Customers can book tickets without paying any money", isCorrect: false, rationale: "Payment gateways require payment authorization before confirming bookings." },
+                    { text: "Businesses no longer need database servers", isCorrect: false, rationale: "Databases are foundational to online booking." }
+                ]
+            },
+            {
+                question: "How do online booking systems handle customer cancellations and ticket refunds?",
+                options: [
+                    { text: "The customer initiates cancellation through their account portal; the database verifies cancellation policies, releases the seat back into available inventory, and processes refund transactions", isCorrect: true, rationale: "Automated cancellation workflows update inventory availability and trigger secure payment refunds." },
+                    { text: "Cancellations are impossible once a booking button is clicked", isCorrect: false, rationale: "Most systems provide automated cancellation and refund mechanisms." },
+                    { text: "Cancellations require mailing physical letters to airline headquarters", isCorrect: false, rationale: "Cancellations are processed instantly online." },
+                    { text: "Cancellations delete the airline's entire database", isCorrect: false, rationale: "This is absurd." }
+                ]
+            },
+            {
+                question: "What role do e-tickets and QR codes play in modern online booking systems (such as concerts or flights)?",
+                options: [
+                    { text: "They provide digital proof of booking sent to smartphones, allowing rapid barcode/QR scanning at venue entry gates for paperless check-in", isCorrect: true, rationale: "E-tickets and QR codes streamline event entry and boarding without requiring printed paper tickets." },
+                    { text: "They project holographic images into the customer's eyes", isCorrect: false, rationale: "QR codes are scanned optically by gate readers, not holograms." },
+                    { text: "They store encrypted credit card passwords", isCorrect: false, rationale: "They store reservation verification tokens, not raw financial passwords." },
+                    { text: "They charge smartphone batteries wirelessly", isCorrect: false, rationale: "This is ticketing verification, not battery charging." }
+                ]
+            },
+            {
+                question: "Why do online booking websites use interactive seat maps during the reservation process?",
+                options: [
+                    { text: "To allow customers to view available vs. booked seats in real time and choose their preferred seating location visually", isCorrect: true, rationale: "Interactive seat maps query the database instantly to show real-time seat availability." },
+                    { text: "To display decorative background wallpaper graphics", isCorrect: false, rationale: "Seat maps serve a functional reservation purpose." },
+                    { text: "To print paper maps on office laser printers", isCorrect: false, rationale: "This is digital screen selection." },
+                    { text: "To measure airplane cabin air pressure", isCorrect: false, rationale: "Cabin pressure uses environmental sensors." }
+                ]
+            },
+            {
+                question: "How do automated email or SMS confirmation notifications benefit customers after completing an online booking?",
+                options: [
+                    { text: "They provide instant written confirmation, booking reference details, receipts, and itinerary reminders directly to the customer", isCorrect: true, rationale: "Automated notifications give users immediate peace of mind and record details of their purchase." },
+                    { text: "They subscribe the customer to daily computer virus spam emails", isCorrect: false, rationale: "Confirmations are legitimate transactional messages." },
+                    { text: "They delete the customer's user account profile", isCorrect: false, rationale: "This would destroy the reservation." },
+                    { text: "They lock the customer's phone screen permanently", isCorrect: false, rationale: "This is false." }
+                ]
+            },
+            {
+                question: "What is an automated waiting list feature in online booking systems (such as for sold-out events or flights)?",
+                options: [
+                    { text: "A database queue that automatically notifies registered customers if a previously booked ticket is cancelled and becomes available", isCorrect: true, rationale: "Waiting lists queue interested customers and notify them automatically when inventory opens up." },
+                    { text: "A queue that forces customers to stand in a physical line outside ticket offices", isCorrect: false, rationale: "Online waiting lists operate digitally." },
+                    { text: "A virus quarantine folder for infected files", isCorrect: false, rationale: "This describes anti-malware quarantine." },
+                    { text: "A spreadsheet error reporting tool", isCorrect: false, rationale: "This is spreadsheet error checking." }
+                ]
+            },
+            {
+                question: "How do hotel online booking systems manage room pricing dynamically?",
+                options: [
+                    { text: "Using pricing algorithms that adjust room rates automatically based on seasonal demand, booking lead time, occupancy rates, and competitor pricing", isCorrect: true, rationale: "Dynamic pricing algorithms maximize hotel revenue by adjusting rates based on real-time market demand." },
+                    { text: "By flipping a coin every morning to decide room rates", isCorrect: false, rationale: "Pricing is calculated using business logic and demand data, not coin flips." },
+                    { text: "By printing paper price lists manually every hour", isCorrect: false, rationale: "Prices update dynamically in the database website." },
+                    { text: "By charging all customers the exact same flat fee forever", isCorrect: false, rationale: "Dynamic pricing fluctuates based on demand." }
+                ]
+            },
+            {
+                question: "What is 'batch processing' versus 'real-time processing' in the context of booking systems?",
+                options: [
+                    { text: "Online booking systems require real-time processing so inventory updates instantly upon payment, whereas batch processing groups transactions to process later (unsuitable for live seat sales)", isCorrect: true, rationale: "Live bookings require instant real-time processing to prevent double-booking, unlike delayed batch processing." },
+                    { text: "Batch processing is used for live airline seat sales, while real-time is used for printing books", isCorrect: false, rationale: "This is reversed." },
+                    { text: "There is no difference between batch and real-time processing", isCorrect: false, rationale: "Timing and database updates differ fundamentally." },
+                    { text: "Batch processing prints paper invoices faster than light", isCorrect: false, rationale: "This is absurd." }
+                ]
+            },
+            {
+                question: "Why do online booking systems require user account creation or guest checkout options?",
+                options: [
+                    { text: "To capture customer contact details, payment info, and booking history securely while balancing user checkout speed and convenience", isCorrect: true, rationale: "Accounts store customer preferences and history, while guest checkout reduces friction for one-time buyers." },
+                    { text: "To prevent customers from ever using the website again", isCorrect: false, rationale: "Businesses want repeat customers." },
+                    { text: "To format the user's hard disk drive", isCorrect: false, rationale: "Account creation does not affect local disk drives." },
+                    { text: "To connect to external Bluetooth speakers", isCorrect: false, rationale: "This is unrelated." }
+                ]
+            },
+            {
+                question: "How do travel aggregator websites (like Skyscanner or Booking.com) interact with individual airline or hotel booking databases?",
+                options: [
+                    { text: "Using Application Programming Interfaces (APIs) to query multiple airline and hotel databases in real time and display aggregated results to the user", isCorrect: true, rationale: "APIs allow aggregator sites to fetch live pricing and availability across disparate airline and hotel servers." },
+                    { text: "By mailing physical paper letters to airlines requesting ticket prices", isCorrect: false, rationale: "Aggregators use instant digital API requests." },
+                    { text: "By hacking into airline databases illegally", isCorrect: false, rationale: "Aggregators use authorized commercial APIs." },
+                    { text: "By printing paper airline schedules on dot-matrix printers", isCorrect: false, rationale: "This is digital API communication." }
+                ]
+            },
+            {
+                question: "What is the role of customer reviews and ratings integrated into online booking platforms?",
+                options: [
+                    { text: "To provide authentic peer feedback on hotels, flights, and tours, helping future customers make informed reservation decisions", isCorrect: true, rationale: "Reviews build consumer trust and influence online booking decisions." },
+                    { text: "To serve as computer virus code that infects user browsers", isCorrect: false, rationale: "Reviews are text and rating data." },
+                    { text: "To calculate airplane fuel consumption", isCorrect: false, rationale: "Fuel calculation is handled by flight management systems." },
+                    { text: "To format spreadsheet formulas", isCorrect: false, rationale: "This is spreadsheet modeling." }
+                ]
+            },
+            {
+                question: "Which summary best encapsulates 6.5 / 6.5.1 Online Booking Systems in IGCSE ICT?",
+                options: [
+                    { text: "Online booking systems are web-based transactional database applications that enable 24/7 global reservations for travel, hotels, and events, utilizing real-time inventory updates, secure SSL payment gateways, and automated confirmations to prevent double-booking", isCorrect: true, rationale: "Online booking systems automate reservations securely through real-time database management and web interfaces." },
+                    { text: "Online booking systems are manual paper logbooks used exclusively by hotel front desk receptionists", isCorrect: false, rationale: "Online booking systems are fully computerized web applications." },
+                    { text: "Online booking systems require no database storage or internet connectivity", isCorrect: false, rationale: "Databases and internet connectivity are essential." },
+                    { text: "Online booking systems are identical to offline video game consoles", isCorrect: false, rationale: "Booking systems handle commercial reservations, not gaming." }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const questionCounter = document.getElementById("question-counter");
+        const scoreDisplay = document.getElementById("score-display");
+        const questionBox = document.getElementById("question-box");
+        const optionsContainer = document.getElementById("options-container");
+        const feedbackBox = document.getElementById("feedback-box");
+        const nextBtn = document.getElementById("next-btn");
+        const quizContainer = document.getElementById("quiz-container");
+        const resultsContainer = document.getElementById("results-container");
+        const finalScore = document.getElementById("final-score");
+
+        function loadQuestion() {
+            answered = false;
+            feedbackBox.classList.add("hidden");
+            nextBtn.classList.add("hidden");
+            
+            const q = questions[currentQuestionIndex];
+            questionCounter.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            scoreDisplay.textContent = `Score: ${score}`;
+            questionBox.textContent = q.question;
+
+            // Shuffle options array randomly so correct answer is not always first
+            let shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+
+            optionsContainer.innerHTML = "";
+            shuffledOptions.forEach((opt) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.textContent = opt.text;
+                btn.onclick = () => selectOption(opt, shuffledOptions);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedOpt, shuffledOptions) {
+            if (answered) return;
+            answered = true;
+
+            const allOptionButtons = optionsContainer.children;
+
+            shuffledOptions.forEach((opt, idx) => {
+                allOptionButtons[idx].disabled = true;
+                if (opt.isCorrect) {
+                    allOptionButtons[idx].classList.add("correct");
+                } else if (opt === selectedOpt && !selectedOpt.isCorrect) {
+                    allOptionButtons[idx].classList.add("incorrect");
+                }
+            });
+
+            feedbackBox.classList.remove("hidden");
+            if (selectedOpt.isCorrect) {
+                score++;
+                scoreDisplay.textContent = `Score: ${score}`;
+                feedbackBox.className = "feedback-box correct-feedback";
+                feedbackBox.innerHTML = `<strong>Correct!</strong> ${selectedOpt.rationale}`;
+            } else {
+                feedbackBox.className = "feedback-box incorrect-feedback";
+                feedbackBox.innerHTML = `<strong>Incorrect.</strong> ${selectedOpt.rationale}`;
+            }
+
+            if (currentQuestionIndex < questions.length - 1) {
+                nextBtn.textContent = "Next Question";
+            } else {
+                nextBtn.textContent = "View Results";
+            }
+            nextBtn.classList.remove("hidden");
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                quizContainer.classList.add("hidden");
+                resultsContainer.classList.remove("hidden");
+                finalScore.textContent = `You scored ${score} out of ${questions.length}`;
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultsContainer.classList.add("hidden");
+            quizContainer.classList.remove("hidden");
+            loadQuestion();
+        }
+
+        // Initialize quiz on load
+        loadQuestion();
+    </script>
+</body>
+</html>
